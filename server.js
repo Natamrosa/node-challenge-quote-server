@@ -13,11 +13,16 @@ const quotes = require("./quotes.json");
 //   /                  - Return some helpful welcome info (text)
 //   /quotes            - Should return all quotes (json)
 //   /quotes/random     - Should return ONE quote (json)
+
+
+
+
+
 app.get("/", function (request, response) {
-  response.send("Neill's Quote Server!  Ask me for /quotes/random, or /quotes");
+  response.send("Nata's Quote Server!  Ask me for /quotes/random, or /quotes");
 });
 
-//START OF YOUR CODE...
+
 app.get('/quotes', function(request, response) {
   response.send(quotes)
 });
@@ -27,7 +32,50 @@ app.get('/quotes/random', function(request, response) {
   response.send(randomQuote)
 });
 
+//START OF YOUR CODE 
+
+app.get('/quotes/search', (req, res) => {
+  quotes.forEach((element) => {
+
+  const termQuery = req.query.term.toLowerCase();
+  const search = quotes.filter((element) => 
+
+  element.quote.toLowerCase().includes(termQuery));
+  res.send(search);})
+});
+
+/* como lo hizo el profe
+
+app.get ("/quotes/Search", function (request, response)
+{
+  let searchQuery =request.query.term;
+  console.log(searchQuery);
+let result =   []
+  For (const obj of quotes)  {
+    if (obj.quote.toLowerCase().includes(searchQuery.toLowerCase())){
+      result.push(obj);
+    }
+  }
+  response.send (result)
+})
+
+
+    // const quoteByWordToLowerCase = quoteObj.quote.toLowerCase();   
+    // const findQuotebyWord = quoteByWordToLowerCase.includes(searchTerm);
+
+    //encontrar quotes con el mismo autor
+
+
+   // const quoteByAuthorToLowerCase = quoteObj.author.toLowerCase();   
+   // const findQuotebyAuthor = quoteByAuthorToLowerCase.includes(searchTerm);
+
+   // return findQuotebyWord || findQuotebyAuthor; });
+  //  res.send(searchQuotes);
+*/
+
+
 //pickFromArray es para obtiene un valor random del array
+//
 
 //...END OF YOUR CODE
 
@@ -36,7 +84,9 @@ app.get('/quotes/random', function(request, response) {
 //example: pickFromArray(myContactsArray)
 //
 function pickFromArray(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+  const random = Math.random() * arr.length
+  const randomIndex = Math.floor(random)
+  return arr[randomIndex];
 }
 
 //Start our server so that it listens for HTTP requests!
