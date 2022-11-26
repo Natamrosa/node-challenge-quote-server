@@ -18,6 +18,16 @@ app.get("/", function (request, response) {
 });
 
 //START OF YOUR CODE...
+app.get('/quotes', function(request, response) {
+  response.send(quotes)
+});
+
+app.get('/quotes/random', function(request, response) {
+  const randomQuote = pickFromArray(quotes);
+  response.send(randomQuote)
+});
+
+//pickFromArray es para obtiene un valor random del array
 
 //...END OF YOUR CODE
 
